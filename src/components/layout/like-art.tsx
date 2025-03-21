@@ -13,7 +13,7 @@ export function LikeArtButton({
   userId,
   className,
 }: {
-  artworkId: bigint;
+  artworkId: string;
   likes: PredefinedList[];
   userId: UUID;
   className?: string;
@@ -47,7 +47,7 @@ export function DislikeArtButton({
   userId,
   className,
 }: {
-  artworkId: bigint;
+  artworkId: string;
   dislikes: PredefinedList[];
   userId: UUID;
   className?: string;

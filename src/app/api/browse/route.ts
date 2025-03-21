@@ -66,7 +66,7 @@ export async function POST(req: Request) {
                 const artworks = await Promise.all(
                     paginatedResults.map(async (artwork) => ({
                         ...artwork,
-                        artist_user_name: await fetchArtistUserName(artwork.artist_uid),
+                        artist_user_name: await fetchArtistUserName(artwork.artist_id),
                     }))
                 );
 
@@ -109,7 +109,7 @@ export async function POST(req: Request) {
         const artworks = await Promise.all(
             (data || []).map(async (artwork) => ({
                 ...artwork,
-                artist_user_name: await fetchArtistUserName(artwork.artist_uid),
+                artist_user_name: await fetchArtistUserName(artwork.artist_id),
             }))
         );
 

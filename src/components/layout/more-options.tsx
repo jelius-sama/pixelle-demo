@@ -47,7 +47,7 @@ export default function MoreOptionsButton({
   options,
   userId,
 }: {
-  artworkId: bigint | null;
+  artworkId: string | null;
   userId: UUID | null;
   className?: string;
   options: Options;

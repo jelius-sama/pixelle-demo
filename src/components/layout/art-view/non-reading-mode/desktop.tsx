@@ -51,7 +51,7 @@ const ArtCarouselSection = ({ artwork }: { artwork: ArtworkWithUserName; }) => {
                                     width={500}
                                     height={500}
                                     sourceOnError={'default'}
-                                    src={art}
+                                    src={`/api/proxy?url=${"object/public/" + art.bucket + "/" + art.path}`}
                                     alt={artwork.title}
                                 />
                             </div>
@@ -119,7 +119,7 @@ const ArtMetadataSection = ({ artwork, user }: { artwork: ArtworkWithUserName; u
                 </div>
             )}
 
-            <Link href={`/artist/${artwork.artist_uid}`} className='flex flex-row flex-nowrap items-center gap-x-2'>
+            <Link href={`/artist/${artwork.artist_id}`} className='flex flex-row flex-nowrap items-center gap-x-2'>
                 <span className='w-12 h-12'>
                     <CustomImage
                         sourceOnError={'default'}

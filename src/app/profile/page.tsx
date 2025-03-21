@@ -86,7 +86,7 @@ export default async function ProfilePage({
             <DetailedArtCard
               key={index}
               allowDeleteOption={true}
-              artwork={omit(art, ["artist_user_name", "artist_uid"])}
+              artwork={omit(art, ["artist_user_name", "artist_id"])}
             />
           ))}
         </section>

@@ -37,12 +37,12 @@ export interface ArtWork {
     /**
      * This is to identify which user this artwork belongs to.
      */
-    artist_uid: ForeignKey<User["id"]>;
+    artist_id: ForeignKey<User["id"]>;
 
     /**
      * Unique ID of the artwork.
      */
-    id: PrimaryKey<bigint>;
+    id: PrimaryKey<UUID>;
 
     /**
      * Type of the artwork.
@@ -84,7 +84,10 @@ export interface ArtWork {
     dislikes: NULLABLE<PredefinedList[]>;
 
     /** An array of URLs for the artwork's images. */
-    images: string[];
+    images: {
+        bucket: string,
+        path: string
+    }[];
 };
 
 

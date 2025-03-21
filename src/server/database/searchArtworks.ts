@@ -22,7 +22,7 @@ export default async function searchArtworks(query: string): Promise<ArtworkWith
 
     const ArtworkWithUserNames = await Promise.all(
         (artworks as ArtWork[]).map(async (artwork) => {
-            const artist_user_name = await fetchArtistUserName(artwork.artist_uid);
+            const artist_user_name = await fetchArtistUserName(artwork.artist_id);
             return {
                 ...artwork,
                 artist_user_name,

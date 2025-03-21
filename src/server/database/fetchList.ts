@@ -24,7 +24,10 @@ type StripedArtworkData<T = PredefinedList[]> = {
     artwork_id: UUID;
     likes: T;
     dislikes: T;
-    images: string[];
+    images: {
+        bucket: string,
+        path: string
+    }[];
 };
 
 export async function fetchListsMetadata(userId: UUID): Promise<{ predefined: ListMetadata[]; userDefined: ListMetadata[]; }> {
@@ -89,7 +92,7 @@ export async function fetchListsMetadata(userId: UUID): Promise<{ predefined: Li
                         .filter((entry) => entry.uid === userId)
                         .map((entry) => ({
                             timestamp: entry.timestamp,
-                            image: artwork.images?.[0] || "", // Use the first image as the thumbnail
+                            image: `/api/proxy?url=${"object/public/" + artwork.images[0].bucket + "/" + artwork.images[0].path}` || "", // Use the first image as the thumbnail
                         }));
                 })
                 .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
@@ -116,7 +119,7 @@ export async function fetchListsMetadata(userId: UUID): Promise<{ predefined: Li
                 return "";
             }
 
-            return artworkData ? artworkData.images[0] : "";
+            return artworkData ? `/api/proxy?url=${"object/public/" + artworkData.images[0].bucket + "/" + artworkData.images[0].path}` : "";
         }
     }
 
@@ -201,7 +204,7 @@ export async function fetchUserDefinedList(id: bigint): Promise<ListItemWithMeta
     }
 
     // Fetch artwork data in parallel
-    const artworkDataMap = new Map<bigint, ArtworkWithUserName>();
+    const artworkDataMap = new Map<string, ArtworkWithUserName>();
     const artworkPromises = listItems.map(async (item) => {
         if (!artworkDataMap.has(item.artwork_id)) {
             const { data: artworkData, error: artworkError } = await supabase
@@ -216,7 +219,7 @@ export async function fetchUserDefinedList(id: bigint): Promise<ListItemWithMeta
             if (artworkError) {
                 console.error(`Failed to fetch artwork data for artwork ID ${item.artwork_id}:`, artworkError);
             } else if (artworkData) {
-                artworkDataMap.set(item.artwork_id, { artist_user_name: await fetchArtistUserName(artworkData.artist_uid), ...artworkData });
+                artworkDataMap.set(item.artwork_id, { artist_user_name: await fetchArtistUserName(artworkData.artist_id), ...artworkData });
             }
         }
     });

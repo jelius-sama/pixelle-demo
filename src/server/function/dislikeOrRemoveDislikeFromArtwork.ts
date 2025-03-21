@@ -11,7 +11,7 @@ export type ExpectedMessages =
     "Something went wrong!" |
     "Successfully removed your dislike from the artwork.";
 
-export default async function dislikeOrRemoveDislikeFromArtwork({ artId }: { artId: bigint; }): Promise<{ status: ExpectedStatus | (number & {}), message: ExpectedMessages | (string & {}); operation: OperationPerformed; }> {
+export default async function dislikeOrRemoveDislikeFromArtwork({ artId }: { artId: string; }): Promise<{ status: ExpectedStatus | (number & {}), message: ExpectedMessages | (string & {}); operation: OperationPerformed; }> {
     const { data: { user }, error } = await createServerClient().auth.getUser();
 
     if (!user) {

@@ -29,7 +29,7 @@ export default function ArtCard({
         <CardContent className="p-0">
           <Image
             sourceOnError="default"
-            src={artwork.images[0]}
+            src={`/api/proxy?url=${"object/public/" + artwork.images[0].bucket + "/" + artwork.images[0].path}`}
             height={200}
             width={200}
             alt="test"
@@ -40,7 +40,7 @@ export default function ArtCard({
       </Link>
 
       <CardFooter className="flex flex-col items-start p-2 relative">
-        <Link href={`/artist/${artwork.artist_uid}`}>
+        <Link href={`/artist/${artwork.artist_id}`}>
           <CardDescription className="truncate block w-full max-w-[calc(200px_-_(8px_*_2))]">
             {artwork.artist_user_name}
           </CardDescription>

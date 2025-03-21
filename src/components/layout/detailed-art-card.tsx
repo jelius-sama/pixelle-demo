@@ -28,7 +28,7 @@ export default function DetailedArtCard({
   artwork,
   allowDeleteOption
 }: {
-  artwork: ArtworkWithUserName | Omit<ArtWork, "artist_uid">;
+  artwork: ArtworkWithUserName | Omit<ArtWork, "artist_id">;
   allowDeleteOption?: boolean;
 }) {
   const nextBtnRef = React.useRef<HTMLButtonElement | null>(null);
@@ -183,7 +183,7 @@ export default function DetailedArtCard({
                     className="w-full h-full object-cover"
                     width={400}
                     height={400}
-                    src={img}
+                    src={`/api/proxy?url=${"object/public/" + img.bucket + "/" + img.path}`}
                     alt={"art-title"}
                   />
                 </CarouselItem>
@@ -210,11 +210,11 @@ export default function DetailedArtCard({
         <CardFooter className="z-10 basis-1/5 p-0 px-4 py-2 w-full h-full flex flex-row justify-between items-center bg-background/80 backdrop-saturate-150 backdrop-blur-md antialiased">
           <div className="flex flex-row flex-nowrap items-center">
             <div className="flex flex-row flex-nowrap items-center justify-center gap-x-2">
-              {"artist_uid" in artwork ? (
+              {"artist_id" in artwork ? (
                 <React.Fragment>
                   <Link
                     className="w-12 h-12"
-                    href={`/artist/${artwork.artist_uid}`}
+                    href={`/artist/${artwork.artist_id}`}
                   >
                     <CustomImage
                       sourceOnError={"default"}
@@ -240,7 +240,7 @@ export default function DetailedArtCard({
                       </p>
                     </Link>
 
-                    <Link href={`/artist/${artwork.artist_uid}`}>
+                    <Link href={`/artist/${artwork.artist_id}`}>
                       <CardDescription className="truncate block w-full max-w-[calc(400px_-_((48px_*_2)_+_(32px_*_2)))]">
                         {artwork.artist_user_name}
                       </CardDescription>

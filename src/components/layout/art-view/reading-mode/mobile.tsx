@@ -46,7 +46,7 @@ export const MobileView = ({ artwork, style }: ArtViewProps) => {
                                         width={500}
                                         height={500}
                                         sourceOnError={'default'}
-                                        src={art}
+                                        src={`/api/proxy?url=${"object/public/" + art.bucket + "/" + art.path}`}
                                         alt={artwork.title}
                                     />
                                 </div>

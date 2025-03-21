@@ -31,7 +31,7 @@ export default async function ArtPage({ params }: { params: { uid: UUID } }) {
 
   const [suggestions, otherWorks] = await Promise.all([
     fetchArtworks(),
-    fetchArtworksByArtistId(artwork.artist_uid),
+    fetchArtworksByArtistId(artwork.artist_id),
   ]);
 
   return (

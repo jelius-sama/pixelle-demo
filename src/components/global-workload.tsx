@@ -7,9 +7,9 @@ import dislikeOrRemoveDislikeFromArtwork from "@/server/function/dislikeOrRemove
 const WorkloadContext = createContext({
   post: async (formData: FormData) => { },
   postUploading: false,
-  likeOrRemoveLike: async (artworkId: bigint, initialLiked: boolean) => { },
+  likeOrRemoveLike: async (artworkId: string, initialLiked: boolean) => { },
   dislikeOrRemoveDislike: async (
-    artworkId: bigint,
+    artworkId: string,
     initialDisliked: boolean
   ) => { },
   likesState: {} as Record<string, boolean>,
@@ -47,7 +47,7 @@ export function WorkloadProvider({ children }: { children: React.ReactNode }) {
   }
 
   /**Typescript error for bigint can't be used as index is ignored for testing purpose */
-  const likeOrRemoveLike = async (artworkId: bigint, initialLiked: boolean) => {
+  const likeOrRemoveLike = async (artworkId: string, initialLiked: boolean) => {
     // @ts-ignore
     const isLiked = likesState[artworkId] ?? initialLiked;
     // @ts-ignore
@@ -77,7 +77,7 @@ export function WorkloadProvider({ children }: { children: React.ReactNode }) {
 
   /**Typescript error for bigint can't be used as index is ignored for testing purpose */
   const dislikeOrRemoveDislike = async (
-    artworkId: bigint,
+    artworkId: string,
     initialDisliked: boolean
   ) => {
     // @ts-ignore

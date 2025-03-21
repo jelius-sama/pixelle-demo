@@ -22,7 +22,7 @@ export default async function fetchArtworks(): Promise<ArtworkWithUserName[]> {
     // For each artwork, fetch the artist's user name and add it to the artwork data
     const ArtworkWithUserNames = await Promise.all(
         artworks.map(async (artwork) => {
-            const userName = await fetchArtistUserName(artwork.artist_uid);
+            const userName = await fetchArtistUserName(artwork.artist_id);
 
             // Return the artwork data with the user name added
             return {
@@ -54,7 +54,7 @@ export async function fetchArtworkById(artId: UUID): Promise<ArtworkWithUserName
     const artwork = data as ArtWork;
 
     // Fetch the artist's user name
-    const artistUserName = await fetchArtistUserName(artwork.artist_uid);
+    const artistUserName = await fetchArtistUserName(artwork.artist_id);
 
     // Add the artist's username to the artwork data
     const artworkWithUserName: ArtworkWithUserName = {
@@ -118,7 +118,7 @@ export async function fetchUserLikedArtworks(userId: string): Promise<ArtworkWit
     // Fetch the usernames of the respective artists for the liked artworks
     const artworksWithUsernames: ArtworkWithUserName[] = await Promise.all(
         artworks.map(async (artwork) => {
-            const artistUserName = await fetchArtistUserName(artwork.artist_uid);
+            const artistUserName = await fetchArtistUserName(artwork.artist_id);
             return {
                 ...artwork,
                 artist_user_name: artistUserName,
@@ -152,7 +152,7 @@ export async function fetchUserDislikedArtworks(userId: string): Promise<Artwork
     // Fetch the usernames of the respective artists for the liked artworks
     const artworksWithUsernames: ArtworkWithUserName[] = await Promise.all(
         artworks.map(async (artwork) => {
-            const artistUserName = await fetchArtistUserName(artwork.artist_uid);
+            const artistUserName = await fetchArtistUserName(artwork.artist_id);
             return {
                 ...artwork,
                 artist_user_name: artistUserName,

@@ -21,7 +21,7 @@ export async function GET() {
     // For each artwork, fetch the artist's user name and add it to the artwork data
     const ArtworkWithUserNames = await Promise.all(
         artworks.map(async (artwork) => {
-            const userName = await fetchArtistUserName(artwork.artist_uid);
+            const userName = await fetchArtistUserName(artwork.artist_id);
 
             // Return the artwork data with the user name added
             return {
