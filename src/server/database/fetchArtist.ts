@@ -6,8 +6,8 @@ import { ArtWork, UUID } from "@/server/database/schema";
 import fetchRawUserMetaData from "@/server/database/fetchUserMetadata";
 
 export interface Artist extends UserMetadata {
-    artist_uid: UUID;
-    artworks: Omit<ArtWork, "artist_uid">[];
+    artist_id: UUID;
+    artworks: Omit<ArtWork, "artist_id">[];
 }
 
 export default async function fetchArtist(artistID: UUID): Promise<Artist | null> {
@@ -25,7 +25,7 @@ export default async function fetchArtist(artistID: UUID): Promise<Artist | null
     const { data: artworks, error: artworksError } = await supabase
         .from('artworks')
         .select('*')
-        .eq('artist_uid', artistID);
+        .eq('artist_id', artistID);
 
     if (artworksError) {
         console.error("Error fetching artworks:", artworksError);
@@ -36,13 +36,13 @@ export default async function fetchArtist(artistID: UUID): Promise<Artist | null
         return null;
     }
 
-    // Remove `artist_uid` from each artwork and include it at the top
-    const formattedArtworks = artworks.map(({ artist_uid, ...rest }) => rest) as Omit<ArtWork, "artist_uid">[];
+    // Remove `artist_id` from each artwork and include it at the top
+    const formattedArtworks = artworks.map(({ artist_id, ...rest }) => rest) as Omit<ArtWork, "artist_id">[];
 
     // Combine metadata with artworks
     const artist: Artist = {
         ...userMetaData,
-        artist_uid: artistID,
+        artist_id: artistID,
         artworks: formattedArtworks,
     };
 

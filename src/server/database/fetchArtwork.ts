@@ -69,11 +69,11 @@ export async function fetchArtworkById(artId: UUID): Promise<ArtworkWithUserName
 export async function fetchArtworksByArtistId(artistId: string): Promise<ArtworkWithUserName[] | null> {
     const supabase = createServerClient();
 
-    // Fetch the artworks with the specified artist_uid
+    // Fetch the artworks with the specified artist_id
     const { data, error } = await supabase
         .from('artworks')
         .select('*')
-        .eq('artist_uid', artistId);
+        .eq('artist_id', artistId);
 
     if (error || !data) {
         console.error("Error fetching artworks data: ", error);

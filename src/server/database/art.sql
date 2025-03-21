@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Creating the artworks table to store the artwork details
 CREATE TABLE public.artworks (
-    artist_uid UUID NOT NULL,  -- Reference to the user who created the artwork
+    artist_id UUID NOT NULL,  -- Reference to the user who created the artwork
     artwork_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),  -- Auto-generate unique ID for artwork
     artwork_type TEXT NOT NULL CHECK (artwork_type IN ('illustration', 'manga', 'light_novel')),  -- Type of artwork
     title TEXT NOT NULL,  -- Title of the artwork
@@ -14,7 +14,7 @@ CREATE TABLE public.artworks (
     likes TEXT[] DEFAULT ARRAY[]::TEXT[],  -- Default to empty array if not provided
     dislikes TEXT[] DEFAULT ARRAY[]::TEXT[],  -- Default to empty array if not provided
     images TEXT[] NOT NULL,  -- Array of URLs for the artwork's images
-    FOREIGN KEY (artist_uid) REFERENCES auth.users(id) ON DELETE CASCADE
+    FOREIGN KEY (artist_id) REFERENCES auth.users(id) ON DELETE CASCADE
 );
 
 -- Creating the comments table to store the comments on artworks
